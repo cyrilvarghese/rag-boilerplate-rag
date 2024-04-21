@@ -16,6 +16,7 @@
     import { Input } from "$lib/components/ui/input";
     import { LoaderCircle } from "lucide-svelte";
     import { Skeleton } from "$lib/components/ui/skeleton";
+    import { fade } from "svelte/transition";
 
     let isLoading: boolean = false;
     let question: string = "How to conduct good user interviews?";
@@ -34,20 +35,14 @@
 
 <main>
     <p class=" p-4 pb-0 text-xl text-muted-foreground">Relevant Snippets</p>
-    <ScrollArea
-        class=" h-[calc(100vh-460px)] m-4{isLoading ? '' : ' bg-muted'}"
-    >
+    <ScrollArea class=" h-[calc(100vh-460px)] m-4 rounded-lg  bg-muted">
         {#if isLoading}
-            <div class="flex flex-col items-start gap-6">
-                <div>
-                    <Skeleton class="h-[100px] w-[470px]" />
-                </div>
-                <div>
-                    <Skeleton class="h-[100px] w-[470px]" />
-                </div>
-                <div>
-                    <Skeleton class="h-[100px] w-[470px]" />
-                </div>
+            <div
+                class="flex flex-col items-center justify-center pt-[100px] gap-6"
+            >
+                <p class=" text-xl text-muted-foreground animate-pulse">
+                    Loading Snippets...
+                </p>
             </div>
         {:else}
             <SnippetList />

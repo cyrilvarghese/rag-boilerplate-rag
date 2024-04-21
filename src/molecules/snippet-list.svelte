@@ -1,42 +1,42 @@
 <script lang="ts">
     import { cn } from "$lib/utils.js";
-    import { ScrollArea } from "$lib/components/ui/scroll-area";
-    import type { Tag } from "src/types/index.js";
-    import { onMount } from "svelte";
     import ChunkDetails from "./snippet-details-dialog.svelte";
     import {
         snippetStore,
-        type QueryRequest,
-        type Snippet,
     } from "../store/chunkStore";
-    let snippets: any[] = [];
+    import { fade, fly } from "svelte/transition";
+        let snippets: any[] = [];
     snippetStore.subscribe((relevantSnippets) => {
         debugger;
         snippets = [...relevantSnippets];
     });
+ 
 </script>
 
-<main>
+<main transition:fly={{ y: 200, duration: 1000 }}>
     <div class="flex flex-col gap-6 p-4">
         {@debug snippets}
-        {#each snippets as data}
-            <ChunkDetails
-                documentText={data.page_content}
-                orignalSrc={data.url_source}
-                fileSrc={data.file_source}
-            >
-                <button
-                    class={cn(
-                        "  flex flex-col bg-white items-start gap-2 rounded-lg shadow-sm  p-4 text-left text-sm transition-all hover:bg-accent hover:shadow",
-                    )}
+        {#each snippets as data, index (index)}
+            <div class="flex flex-row items-center" >
+               
+                <ChunkDetails
+                    documentText={data.page_content}
+                    orignalSrc={data.url_source}
+                    fileSrc={data.file_source}
                 >
-                    <div
-                        class="line-clamp-2 text-sm m-4 ml-0 text-muted-foreground"
+                    <button
+                        class={cn(
+                            "  flex flex-col  items-start gap-2 shadow-sm  rounded-lg  p-4 text-left text-sm transition-all",
+                        )}
                     >
-                        {data.page_content}
-                    </div>
-                </button>
-            </ChunkDetails>
+                        <div
+                            class="line-clamp-2 text-sm m-4 ml-0 text-muted-foreground"
+                        >
+                            {data.page_content}
+                        </div>
+                    </button>
+                </ChunkDetails>
+            </div>
         {/each}
     </div>
 </main>

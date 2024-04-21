@@ -144,13 +144,13 @@
         </div>
         <Separator orientation="vertical" />
         <!-- column 2 -->
-        <div class="w-[45%]">
+        <div class="w-[40%]">
             <SnippetContainer />
         </div>
         <Separator orientation="vertical" />
 
         <!-- column 3 -->
-        <div class="w-[30%]">
+        <div class="w-[35%]">
             <p class=" p-4 pb-0 text-xl text-muted-foreground">Generation</p>
             <Generation />
         </div>

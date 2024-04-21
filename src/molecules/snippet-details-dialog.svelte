@@ -1,13 +1,42 @@
 <script lang="ts">
+    import { Checkbox } from "$lib/components/ui/checkbox";
     import * as Dialog from "$lib/components/ui/dialog/index.js";
-
+    import {
+        snippetStore,
+        type QueryRequest,
+        type Snippet,
+        selectedSnippets,
+    } from "../store/chunkStore";
     export let documentText = "";
     export let orignalSrc = "";
     export let fileSrc = "";
+    let checked: boolean | string = false;
+    function handleChecked(isChecked: boolean | string, text: string) {
+        checked = isChecked;
+        selectedSnippets.update((currentSnippets) => {
+            const index = currentSnippets.indexOf(text);
+            if (index > -1) {
+                currentSnippets.splice(index, 1); // Remove if exists
+            } else {
+                currentSnippets.push(text); // Add if not exists
+            }
+            console.log(currentSnippets);
+
+            return currentSnippets;
+        });
+    }
 </script>
 
+<Checkbox
+    class="mr-4"
+    onCheckedChange={(isChecked) => handleChecked(isChecked, documentText)}
+/>
 <Dialog.Root>
-    <Dialog.Trigger>
+    <Dialog.Trigger
+        class="bg-white hover:bg-accent  rounded-lg hover:shadow {checked
+            ? 'shadow-md'
+            : ''}"
+    >
         <slot><!-- optional fallback --></slot>
     </Dialog.Trigger>
 

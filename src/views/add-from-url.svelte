@@ -8,7 +8,8 @@
     import { Textarea } from "$lib/components/ui/textarea";
     const dispatch = createEventDispatcher();
     export let isOpen: boolean = false;
-
+    export let urlString: string = "";
+    $: urlArray = urlString.split(",");
     function handleOpenChange(isOpen: boolean) {
         isOpen = isOpen; // Ensuring openModal is updated with dialog's state
         if (!isOpen) {
@@ -17,9 +18,9 @@
     }
     function handleSubmit(event: any) {
         // fileStore.uploadFiles(rawFiles);
+        //sunmit urlArray
     }
     onMount(() => {
-       
         console.log(isOpen);
     });
 </script>
@@ -28,15 +29,18 @@
     <Dialog.Content class="sm:max-w-[750px] sm:max-h-[80%] overflow-auto ">
         <Dialog.Header>
             <Dialog.Title>Add From URL</Dialog.Title>
-            <Dialog.Description>Enter a website address or YouTube URL below</Dialog.Description>
+            <Dialog.Description
+                >Enter a website address or YouTube URL below</Dialog.Description
+            >
         </Dialog.Header>
         <div class="grid gap-6 pt-2">
             <div class="grid gap-3">
                 <Label for="description">URL</Label>
                 <Textarea
                     id="description"
-                    placeholder="you can add multip"
+                    placeholder="you can add multiple comma separated URLs"
                     class="min-h-32"
+                    bind:value={urlString}
                 />
             </div>
         </div>

@@ -7,7 +7,18 @@
     import { cn } from "$lib/utils.js";
     import { tick } from "svelte";
     import TemplatePreview from "../molecules/template-preview.svelte";
-
+    import { questionString, selectedSnippets } from "../store/chunkStore";
+    import { llmQueryStore } from "../store/LLMQueryStore";
+    let snippets: any;
+    let question: string;
+    let additionalPrompt: string;
+    let creativity: number[];
+    selectedSnippets.subscribe((selectedSnippets) => {
+        snippets = selectedSnippets;
+    });
+    questionString.subscribe((questionString) => {
+        question = questionString;
+    });
     const templates = [
         {
             value: "branding",
@@ -50,6 +61,21 @@
             document.getElementById(triggerId)?.focus();
         });
     }
+
+    function generateAnswer(e: any): void {
+        let selectedTemplate = templates.filter((item) => {
+            return item.label === selectedValue;
+        })[0];
+        llmQueryStore.queryLlmWithTemplate(
+            snippets,
+            question + "\n" + additionalPrompt,
+            selectedTemplate.value,
+            0.8,
+        );
+    }
+    import { Slider } from "$lib/components/ui/slider/index.js";
+    import { Label } from "$lib/components/ui/label";
+    import { Textarea } from "$lib/components/ui/textarea";
 </script>
 
 <div class="p-4 flex flex-col gap-6">
@@ -95,4 +121,18 @@
     </Popover.Root>
 
     <TemplatePreview templateName={selectedValue} />
+    <div class="grid gap-3" >
+        <Label for="description">Additional instructions</Label>
+        <Textarea  disabled={selectedValue === "Select a template..."}
+            id="description"
+            placeholder="Any last minute instructions like number of slides etc.."
+            class="min-h-32"
+            bind:value={additionalPrompt}
+        />
+    </div>
+    <Button
+        on:click={generateAnswer}
+        disabled={selectedValue === "Select a template..."}
+        >Generate Slides</Button
+    >
 </div>

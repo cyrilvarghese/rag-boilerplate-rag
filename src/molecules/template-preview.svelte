@@ -9,21 +9,21 @@
 </script>
 
 <Card.Root class={templateName === "Select a template..." ? "hidden" : ""}>
-    <Card.Header class="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
+    <Card.Header class="grid grid-cols-[1fr_110px] items-start gap-2 space-y-0">
         <div class="space-y-1">
             <Card.Title>{templateName}</Card.Title>
-            <Card.Description>
-                Create slides in Figma using the {templateName}
+            <Card.Description class="capitalize">
+                Create slides in Figma using the {templateName} template
             </Card.Description>
         </div>
     </Card.Header>
     <Card.Content>
-        <div class="flex space-x-4 text-sm text-muted-foreground">
+        <div class="flex space-x-2 text-sm text-muted-foreground">
             <div class="flex items-center">
                 <Circle
                     class="mr-1 h-3 w-3 fill-green-400 text-sky-400 animate-pulse"
                 />
-                Figma Plugin Connected
+                <p class="animate-pulse p-0 m-0">Figma Plugin Connected</p>
             </div>
         </div>
     </Card.Content>
