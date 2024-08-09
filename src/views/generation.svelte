@@ -128,8 +128,8 @@
                 </Popover.Content>
             </Popover.Root>
 
-            <TemplatePreview templateName={selectedValue} />
-            <div class="grid gap-3">
+            <TemplatePreview  templateName={selectedValue} />
+            <div class="grid p-2 mt-12 gap-3">
                 <Label for="description">Additional instructions</Label>
                 <Textarea
                     disabled={selectedValue === "Select a template..."}

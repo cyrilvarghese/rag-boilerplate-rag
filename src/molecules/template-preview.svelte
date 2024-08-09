@@ -8,8 +8,10 @@
     export let templateName: string = "";
 </script>
 
-<Card.Root class={templateName === "Select a template..." ? "hidden" : ""}>
-    <Card.Header class="grid grid-cols-[1fr_110px] items-start gap-2 space-y-0">
+<Card.Root class={templateName === "Select a template..." ? "hidden" : "mt-2"}>
+    <Card.Header
+        class="p-4 items-start gap-2 space-y-0"
+    >
         <div class="space-y-1">
             <Card.Title>{templateName}</Card.Title>
             <Card.Description class="capitalize">
